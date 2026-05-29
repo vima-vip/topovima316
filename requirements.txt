@@ -1,0 +1,6 @@
+Flask
+Flask-SQLAlchemy
+openpyxl
+gunicorn
+Werkzeug
+cryptography

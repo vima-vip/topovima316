@@ -1,0 +1,206 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #f4f6f8;
+            color: #222;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            padding: 24px;
+            margin-bottom: 22px;
+        }
+
+        .encabezado h1 {
+            margin: 0 0 12px 0;
+            font-size: 34px;
+        }
+
+        .encabezado p {
+            margin: 6px 0;
+            font-size: 18px;
+        }
+
+        .pregunta-titulo {
+            margin: 0 0 16px 0;
+            font-size: 22px;
+            color: #1f2937;
+        }
+
+        .pregunta-texto {
+            font-size: 22px;
+            line-height: 1.6;
+            margin-bottom: 22px;
+            white-space: normal;
+            word-break: break-word;
+        }
+
+        .opciones {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .opcion {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            width: 100%;
+            padding: 14px 16px;
+            background: #f8fafc;
+            border: 1px solid #dbe2ea;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .opcion:hover {
+            background: #eef4ff;
+            border-color: #b8cdf5;
+        }
+
+        .opcion input[type="radio"] {
+            margin-top: 4px;
+            flex-shrink: 0;
+            transform: scale(1.2);
+        }
+
+        .opcion-texto {
+            font-size: 19px;
+            line-height: 1.5;
+            white-space: normal;
+            word-break: break-word;
+        }
+
+        .acciones {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 24px;
+        }
+
+        button, .boton {
+            border: none;
+            border-radius: 10px;
+            padding: 14px 18px;
+            font-size: 16px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        button {
+            background: #198754;
+            color: white;
+        }
+
+        button:hover {
+            background: #157347;
+        }
+
+        .boton {
+            background: #6c757d;
+            color: white;
+        }
+
+        .boton:hover {
+            background: #5c636a;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 14px;
+            }
+
+            .card {
+                padding: 18px;
+            }
+
+            .encabezado h1 {
+                font-size: 28px;
+            }
+
+            .pregunta-titulo {
+                font-size: 20px;
+            }
+
+            .pregunta-texto {
+                font-size: 18px;
+            }
+
+            .opcion-texto {
+                font-size: 17px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <div class="card encabezado">
+            <h1>Quiz</h1>
+            <p><strong>Usuario:</strong> {{ usuario }}</p>
+            <p><strong>Cuestionario:</strong> {{ archivo }}</p>
+            <p><strong>Modo:</strong> {{ modo }}</p>
+            <p><strong>Total de preguntas:</strong> {{ preguntas|length }}</p>
+        </div>
+
+        <form method="post" action="{{ url_for('corregir') }}">
+            <input type="hidden" name="archivo" value="{{ archivo }}">
+
+            {% for p in preguntas %}
+                <div class="card">
+                    <h2 class="pregunta-titulo">Pregunta {{ loop.index }} (N° {{ p.numero }})</h2>
+                    <div class="pregunta-texto">{{ p.texto }}</div>
+
+                    <div class="opciones">
+                        <label class="opcion">
+                            <input type="radio" name="q_{{ p.numero }}" value="A" required>
+                            <span class="opcion-texto"><strong>A:</strong> {{ p.A }}</span>
+                        </label>
+
+                        <label class="opcion">
+                            <input type="radio" name="q_{{ p.numero }}" value="B">
+                            <span class="opcion-texto"><strong>B:</strong> {{ p.B }}</span>
+                        </label>
+
+                        <label class="opcion">
+                            <input type="radio" name="q_{{ p.numero }}" value="C">
+                            <span class="opcion-texto"><strong>C:</strong> {{ p.C }}</span>
+                        </label>
+
+                        <label class="opcion">
+                            <input type="radio" name="q_{{ p.numero }}" value="D">
+                            <span class="opcion-texto"><strong>D:</strong> {{ p.D }}</span>
+                        </label>
+                    </div>
+                </div>
+            {% endfor %}
+
+            <div class="acciones">
+                <button type="submit">Enviar respuestas</button>
+                <a class="boton" href="{{ url_for('index') }}">Cancelar</a>
+            </div>
+        </form>
+
+    </div>
+</body>
+</html>

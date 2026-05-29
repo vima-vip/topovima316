@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz PDA-SAR</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .container { max-width: 900px; margin: 0 auto; }
+        h1, h2 { color: #003366; }
+        .pregunta { margin-bottom: 20px; padding: 10px; border: 1px solid #ccc; }
+        .opcion { margin-left: 15px; }
+        .correcta { color: green; }
+        .incorrecta { color: red; }
+        .btn { padding: 8px 16px; background-color: #003366; color: #fff; border: none; cursor: pointer; }
+        .btn:hover { background-color: #0055aa; }
+        .topbar { margin-bottom: 15px; }
+        .topbar a { margin-left: 10px; }
+        table { border-collapse: collapse; width: 100%; margin-top: 10px; }
+        th, td { border: 1px solid #ccc; padding: 4px 6px; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="topbar">
+        {% if usuario %}
+            Usuario: <strong>{{ usuario }}</strong>
+            <a href="{{ url_for('logout') }}">Cerrar sesion</a>
+        {% endif %}
+    </div>
+    {% block contenido %}{% endblock %}
+</div>
+</body>
+</html>
