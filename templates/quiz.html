@@ -1,0 +1,297 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        /* 1. FONDO CON GRADIENTE MODERNO Y ANIMADO (Igual al Login) */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        /* 2. TARJETAS CON EFECTO GLASSMORPHISM MODERNO */
+        .card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 18px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            padding: 30px;
+            margin-bottom: 25px;
+            color: #2c3e50;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        /* 3. ENCABEZADO ESTILO PREMIUM */
+        .encabezado {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(240, 244, 248, 0.95));
+            border-left: 6px solid #0072ff;
+        }
+
+        .encabezado h1 {
+            margin: 0 0 15px 0;
+            font-size: 36px;
+            background: linear-gradient(135deg, #0072ff, #00c6ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .encabezado p {
+            margin: 8px 0;
+            font-size: 16px;
+            color: #4a5568;
+        }
+        
+        .encabezado p strong {
+            color: #1a202c;
+        }
+
+        /* 4. SECCIÓN DE PREGUNTAS */
+        .pregunta-titulo {
+            margin: 0 0 14px 0;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #0072ff;
+            font-weight: 700;
+        }
+
+        .pregunta-texto {
+            font-size: 20px;
+            font-weight: 600;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #1a202c;
+            white-space: normal;
+            word-break: break-word;
+        }
+
+        /* 5. OPCIONES INTERACTIVAS Y LLAMATIVAS */
+        .opciones {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .opcion {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            width: 100%;
+            padding: 16px 20px;
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        /* Efecto al pasar el mouse por encima de una opción */
+        .opcion:hover {
+            background: #edf2f7;
+            border-color: #0072ff;
+            transform: translateX(4px);
+        }
+
+        /* Cambio de color cuando el input radio interno está seleccionado */
+        .opcion:has(input[type="radio"]:checked) {
+            background: #ebf8ff;
+            border-color: #0072ff;
+            box-shadow: 0 0 12px rgba(0, 114, 255, 0.15);
+        }
+
+        .opcion input[type="radio"] {
+            margin: 0;
+            flex-shrink: 0;
+            transform: scale(1.3);
+            accent-color: #0072ff; /* Da color azul moderno al radio button */
+        }
+
+        .opcion-texto {
+            font-size: 18px;
+            color: #2d3748;
+            line-height: 1.5;
+            white-space: normal;
+            word-break: break-word;
+        }
+        
+        .opcion-texto strong {
+            color: #0072ff;
+            font-size: 19px;
+        }
+
+        /* 6. BOTONES DE ACCIÓN ESTILIZADOS */
+        .acciones {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        button, .boton {
+            border: none;
+            border-radius: 12px;
+            padding: 16px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            letter-spacing: 0.5px;
+        }
+
+        /* Botón Enviar Respuestas (Verde Premium) */
+        button {
+            background: linear-gradient(135deg, #11998e, #38ef7d);
+            color: white;
+            box-shadow: 0 5px 15px rgba(56, 239, 125, 0.3);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 20px rgba(56, 239, 125, 0.5);
+            filter: brightness(1.05);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        /* Botón Cancelar (Gris Elegante) */
+        .boton {
+            background: linear-gradient(135deg, #4b5563, #374151);
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .boton:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 20px rgba(0, 0, 0, 0.25);
+            filter: brightness(1.1);
+        }
+
+        .boton:active {
+            transform: translateY(0);
+        }
+
+        /* 7. RESPONSIVIDAD REFORZADA */
+        @media (max-width: 768px) {
+            .container {
+                padding: 12px;
+                margin: 15px auto;
+            }
+
+            .card {
+                padding: 20px;
+                margin-bottom: 18px;
+            }
+
+            .encabezado h1 {
+                font-size: 30px;
+            }
+
+            .pregunta-texto {
+                font-size: 18px;
+            }
+
+            .opcion {
+                padding: 12px 15px;
+            }
+
+            .opcion-texto {
+                font-size: 16px;
+            }
+            
+            button, .boton {
+                width: 100%; /* Botones de ancho completo en móviles */
+                padding: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <div class="card encabezado">
+            <h1>Quiz</h1>
+            <p><strong>Usuario:</strong> {{ usuario }}</p>
+            <p><strong>Cuestionario:</strong> {{ archivo }}</p>
+            <p><strong>Modo:</strong> {{ modo }}</p>
+            <p><strong>Total de preguntas:</strong> {{ preguntas|length }}</p>
+        </div>
+
+        <form method="post" action="{{ url_for('corregir') }}">
+            <input type="hidden" name="archivo" value="{{ archivo }}">
+
+            {% for p in preguntas %}
+                <div class="card">
+                    <h2 class="pregunta-titulo">Pregunta {{ loop.index }} (N° {{ p.numero }})</h2>
+                    <div class="pregunta-texto">{{ p.texto }}</div>
+
+                    <div class="opciones">
+                        <label class="opcion">
+                            <input type="radio" name="q_{{ p.numero }}" value="A" required>
+                            <span class="opcion-texto"><strong>A:</strong> {{ p.A }}</span>
+                        </label>
+
+                        <label class="opcion">
+                            <input type="radio" name="q_{{ p.numero }}" value="B">
+                            <span class="opcion-texto"><strong>B:</strong> {{ p.B }}</span>
+                        </label>
+
+                        <label class="opcion">
+                            <input type="radio" name="q_{{ p.numero }}" value="C">
+                            <span class="opcion-texto"><strong>C:</strong> {{ p.C }}</span>
+                        </label>
+
+                        <label class="opcion">
+                            <input type="radio" name="q_{{ p.numero }}" value="D">
+                            <span class="opcion-texto"><strong>D:</strong> {{ p.D }}</span>
+                        </label>
+                    </div>
+                </div>
+            {% endfor %}
+
+            <div class="acciones">
+                <button type="submit">Enviar respuestas</button>
+                <a class="boton" href="{{ url_for('index') }}">Cancelar</a>
+            </div>
+        </form>
+
+    </div>
+</body>
+</html>
