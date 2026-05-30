@@ -1,5 +1,57 @@
-﻿<form method="post">
-    <input type="text" name="username" placeholder="Superadmin" required>
-    <input type="password" name="password" placeholder="Contraseña" required>
-    <button type="submit">Entrar</button>
-</form>
+﻿<style>
+  .login-box{
+    max-width:380px;
+    margin:40px auto;
+    padding:28px;
+    background:linear-gradient(180deg,#111827,#0f172a);
+    border:1px solid #243244;
+    border-radius:18px;
+    box-shadow:0 16px 40px rgba(0,0,0,.28);
+  }
+  .login-box form{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+  .login-box input{
+    width:100%;
+    box-sizing:border-box;
+    padding:12px 14px;
+    border-radius:12px;
+    border:1px solid #334155;
+    background:#0b1220;
+    color:#fff;
+    font-size:15px;
+    outline:none;
+  }
+  .login-box input::placeholder{
+    color:#94a3b8;
+  }
+  .login-box input:focus{
+    border-color:#60a5fa;
+    box-shadow:0 0 0 3px rgba(96,165,250,.18);
+  }
+  .login-box button{
+    padding:12px 14px;
+    border:0;
+    border-radius:12px;
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    color:#fff;
+    font-weight:700;
+    font-size:15px;
+    cursor:pointer;
+    transition:.2s ease;
+  }
+  .login-box button:hover{
+    transform:translateY(-1px);
+    filter:brightness(1.05);
+  }
+</style>
+
+<div class="login-box">
+  <form method="post">
+      <input type="text" name="username" placeholder="Superadmin" required>
+      <input type="password" name="password" placeholder="Contraseña" required>
+      <button type="submit">Entrar</button>
+  </form>
+</div>
