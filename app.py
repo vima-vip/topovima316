@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import os
 import random
 from datetime import datetime
@@ -550,4 +549,3 @@ if __name__ == "__main__":
     with app.app_context():
         db.create_all()
     app.run(debug=True, host="0.0.0.0", port=5000)
->>>>>>> a2b8319875a7d93073687d8e9e27a503728a7d5a
