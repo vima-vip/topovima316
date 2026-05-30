@@ -4,9 +4,12 @@ with app.app_context():
     db.create_all()
 
     datos = [
-        ("oyola", "00149147"),
-        ("luis", "01137414"),
-        ("prueba", "prueba123"),
+        ("Warcentales", "00149147"),
+        ("Ldelacruz", "02153294"),
+        ("Hdiaz", "00197038"),
+        ("Renciso", "00091832"),
+        ("Czuniga", "01037432"),
+        ("Cchavez", "prueba123"),
     ]
 
     for username, password in datos:
